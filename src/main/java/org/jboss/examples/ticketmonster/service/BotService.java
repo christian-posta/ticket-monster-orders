@@ -38,8 +38,7 @@ public class BotService {
     @Inject
     private BookingService bookingService;
 
-    @Inject
-    private Logger logger;
+    private Logger logger = Logger.getLogger(BotService.class.getName());
 
     @Inject
     @BotMessage

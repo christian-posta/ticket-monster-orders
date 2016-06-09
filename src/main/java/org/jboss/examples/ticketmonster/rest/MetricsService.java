@@ -5,6 +5,7 @@ import java.util.*;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
@@ -25,7 +26,7 @@ import org.jboss.examples.ticketmonster.model.Show;
 @Stateless
 public class MetricsService {
 
-    @Inject
+    @PersistenceContext(unitName = "primary")
     private EntityManager entityManager;
 
     /**

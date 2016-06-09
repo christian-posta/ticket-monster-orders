@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -68,7 +69,7 @@ import javax.ws.rs.core.UriInfo;
  */
 public abstract class BaseEntityService<T> {
 
-    @Inject
+    @PersistenceContext(unitName = "primary")
     private EntityManager entityManager;
 
     private Class<T> entityClass;

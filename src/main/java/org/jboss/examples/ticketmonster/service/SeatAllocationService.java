@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.examples.ticketmonster.model.Performance;
 import org.jboss.examples.ticketmonster.model.Seat;
@@ -23,7 +24,7 @@ import org.jboss.examples.ticketmonster.service.AllocatedSeats;
 @SuppressWarnings("serial")
 public class SeatAllocationService {
 
-    @Inject
+    @PersistenceContext(unitName = "primary")
     EntityManager entityManager;
 
     public AllocatedSeats allocateSeats(Section section, Performance performance, int seatCount, boolean contiguous) {

@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -22,8 +23,9 @@ public class MediaService {
     
     @Inject
     private MediaManager mediaManager;
-    
-    @Inject EntityManager entityManager;
+
+    @PersistenceContext(unitName = "primary")
+    EntityManager entityManager;
 
     @GET
     @Path("/cache/{cachedFileName:\\S*}")
