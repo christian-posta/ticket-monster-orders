@@ -23,7 +23,7 @@ can find it in the source at src/main/webapp/WEB-INF/ticket-monster-ds.xml -->
         <properties>
             <!-- Properties for Hibernate -->
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>
 </persistence>
