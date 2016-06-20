@@ -2,6 +2,7 @@ package org.jboss.examples.ticketmonster.service;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -22,6 +23,7 @@ import org.jboss.examples.ticketmonster.service.AllocatedSeats;
  * @author Marius Bogoevici
  */
 @SuppressWarnings("serial")
+@Stateless
 public class SeatAllocationService {
 
     @PersistenceContext(unitName = "primary")

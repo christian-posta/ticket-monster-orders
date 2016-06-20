@@ -2,6 +2,7 @@ package org.jboss.examples.ticketmonster.rest;
 
 import java.io.File;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ import org.jboss.examples.ticketmonster.service.MediaManager;
  *     This is a stateless service, we declare it as an EJB for transaction demarcation
  * </p>
  */
+@Stateless
 public class MediaService {
     
     @Inject
