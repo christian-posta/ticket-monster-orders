@@ -27,7 +27,7 @@ mvn wildfly-swarm:run
 To run with docker:
 
 ```
-mvn clean package -Pf8-build docker:build
+mvn clean package -Pdefault,f8-build docker:build
 docker run -it --rm -p 8080:8080 -e AB_OFF=true fabric8/ticket-monster-orders:1.0-SNAPSHOT
 ```
 
@@ -35,3 +35,14 @@ Can port forward to your local machine from vagrant like this:
 
 > vagrant ssh -- -vnNTL *:8080:$DOCKER_HOST_IP:8080
 
+## Ticket Monster on Kubernetes
+
+```
+mvn -Pf8-build fabric8:apply
+```
+
+## Running with a MySQL backend:
+
+```
+mvn clean package -Pmysql,f8-build docker:build
+```
