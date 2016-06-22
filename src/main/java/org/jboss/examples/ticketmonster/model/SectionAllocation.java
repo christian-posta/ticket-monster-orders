@@ -76,7 +76,7 @@ public class SectionAllocation implements Serializable {
      */
     @ManyToOne
     @NotNull
-    private Performance performance;
+    private PerformanceId performance;
 
     /**
      * <p>
@@ -127,7 +127,7 @@ public class SectionAllocation implements Serializable {
     public SectionAllocation() {
     }
 
-    public SectionAllocation(Performance performance, Section section) {
+    public SectionAllocation(PerformanceId performance, Section section) {
         this.performance = performance;
         this.section = section;
         this.allocated = new long[section.getNumberOfRows()][section.getRowCapacity()];
@@ -306,7 +306,7 @@ public class SectionAllocation implements Serializable {
         return occupiedCount;
     }
 
-    public Performance getPerformance() {
+    public PerformanceId getPerformance() {
         return performance;
     }
 

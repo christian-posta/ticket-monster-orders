@@ -1,42 +1,27 @@
 package org.jboss.examples.ticketmonster.rest.dto;
 
-import java.io.Serializable;
-
-import org.jboss.examples.ticketmonster.model.Booking;
-import org.jboss.examples.ticketmonster.model.SectionAllocation;
-import org.jboss.examples.ticketmonster.model.Show;
+import org.jboss.examples.ticketmonster.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.jboss.examples.ticketmonster.rest.dto.NestedEventDTO;
-
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
-
-import org.jboss.examples.ticketmonster.rest.dto.NestedPerformanceDTO;
-import org.jboss.examples.ticketmonster.model.Performance;
-
-import java.util.Iterator;
-
-import org.jboss.examples.ticketmonster.rest.dto.NestedVenueDTO;
-import org.jboss.examples.ticketmonster.rest.dto.NestedTicketPriceDTO;
-import org.jboss.examples.ticketmonster.model.TicketPrice;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class ShowDTO implements Serializable
 {
 
    private Long id;
-   private NestedEventDTO event;
-   private Set<NestedPerformanceDTO> performances = new HashSet<NestedPerformanceDTO>();
-   private NestedVenueDTO venue;
+   private NestedEventIdDTO event;
+   private Set<NestedPerformanceIdDTO> performances = new HashSet<NestedPerformanceIdDTO>();
+   private NestedVenueIdDTO venue;
    private Set<NestedTicketPriceDTO> ticketPrices = new HashSet<NestedTicketPriceDTO>();
    private String displayTitle;
 
@@ -49,15 +34,15 @@ public class ShowDTO implements Serializable
       if (entity != null)
       {
          this.id = entity.getId();
-         this.event = new NestedEventDTO(entity.getEvent());
-         Iterator<Performance> iterPerformances = entity.getPerformances()
+         this.event = new NestedEventIdDTO(entity.getEvent());
+         Iterator<PerformanceId> iterPerformances = entity.getPerformances()
                .iterator();
          while (iterPerformances.hasNext())
          {
-            Performance element = iterPerformances.next();
-            this.performances.add(new NestedPerformanceDTO(element));
+            PerformanceId element = iterPerformances.next();
+            this.performances.add(new NestedPerformanceIdDTO(element));
          }
-         this.venue = new NestedVenueDTO(entity.getVenue());
+         this.venue = new NestedVenueIdDTO(entity.getVenue());
          Iterator<TicketPrice> iterTicketPrices = entity.getTicketPrices()
                .iterator();
          while (iterTicketPrices.hasNext())
@@ -77,19 +62,19 @@ public class ShowDTO implements Serializable
       }
       if (this.event != null)
       {
-         entity.setEvent(this.event.fromDTO(entity.getEvent(), em));
+         entity.setEvent(this.event.eventId());
       }
-      Iterator<Performance> iterPerformances = entity.getPerformances()
+      Iterator<PerformanceId> iterPerformances = entity.getPerformances()
             .iterator();
       while (iterPerformances.hasNext())
       {
          boolean found = false;
-         Performance performance = iterPerformances.next();
-         Iterator<NestedPerformanceDTO> iterDtoPerformances = this
+         PerformanceId performance = iterPerformances.next();
+         Iterator<NestedPerformanceIdDTO> iterDtoPerformances = this
                .getPerformances().iterator();
          while (iterDtoPerformances.hasNext())
          {
-            NestedPerformanceDTO dtoPerformance = iterDtoPerformances
+            NestedPerformanceIdDTO dtoPerformance = iterDtoPerformances
                   .next();
             if (dtoPerformance.getId().equals(performance.getId()))
             {
@@ -113,16 +98,16 @@ public class ShowDTO implements Serializable
             em.remove(performance);
          }
       }
-      Iterator<NestedPerformanceDTO> iterDtoPerformances = this
+      Iterator<NestedPerformanceIdDTO> iterDtoPerformances = this
             .getPerformances().iterator();
       while (iterDtoPerformances.hasNext())
       {
          boolean found = false;
-         NestedPerformanceDTO dtoPerformance = iterDtoPerformances.next();
+         NestedPerformanceIdDTO dtoPerformance = iterDtoPerformances.next();
          iterPerformances = entity.getPerformances().iterator();
          while (iterPerformances.hasNext())
          {
-            Performance performance = iterPerformances.next();
+            PerformanceId performance = iterPerformances.next();
             if (dtoPerformance.getId().equals(performance.getId()))
             {
                found = true;
@@ -131,13 +116,13 @@ public class ShowDTO implements Serializable
          }
          if (found == false)
          {
-            Iterator<Performance> resultIter = em
+            Iterator<PerformanceId> resultIter = em
                   .createQuery("SELECT DISTINCT p FROM Performance p",
-                        Performance.class).getResultList().iterator();
+                        PerformanceId.class).getResultList().iterator();
             while (resultIter.hasNext())
             {
-               Performance result = resultIter.next();
-               if (result.getId().equals(dtoPerformance.getId()))
+               PerformanceId result = resultIter.next();
+               if (result.getId() == dtoPerformance.getId())
                {
                   entity.getPerformances().add(result);
                   break;
@@ -147,7 +132,7 @@ public class ShowDTO implements Serializable
       }
       if (this.venue != null)
       {
-         entity.setVenue(this.venue.fromDTO(entity.getVenue(), em));
+         entity.setVenue(this.venue.venueId());
       }
       Iterator<TicketPrice> iterTicketPrices = entity.getTicketPrices()
             .iterator();
@@ -208,7 +193,7 @@ public class ShowDTO implements Serializable
       return entity;
    }
 
-   public List<SectionAllocation> findSectionAllocationsByPerformance(Performance performance, EntityManager em)
+   public List<SectionAllocation> findSectionAllocationsByPerformance(PerformanceId performance, EntityManager em)
    {
       CriteriaQuery<SectionAllocation> criteria = em
              .getCriteriaBuilder().createQuery(SectionAllocation.class);
@@ -219,7 +204,7 @@ public class ShowDTO implements Serializable
              criteria.select(from).where(performanceIsSame)).getResultList();
    }
    
-   public List<Booking> findBookingsByPerformance(Performance performance, EntityManager em)
+   public List<Booking> findBookingsByPerformance(PerformanceId performance, EntityManager em)
    {
       CriteriaQuery<Booking> criteria = em.getCriteriaBuilder().createQuery(Booking.class);
       Root<Booking> from = criteria.from(Booking.class);
@@ -239,32 +224,32 @@ public class ShowDTO implements Serializable
       this.id = id;
    }
 
-   public NestedEventDTO getEvent()
+   public NestedEventIdDTO getEvent()
    {
       return this.event;
    }
 
-   public void setEvent(final NestedEventDTO event)
+   public void setEvent(final NestedEventIdDTO event)
    {
       this.event = event;
    }
 
-   public Set<NestedPerformanceDTO> getPerformances()
+   public Set<NestedPerformanceIdDTO> getPerformances()
    {
       return this.performances;
    }
 
-   public void setPerformances(final Set<NestedPerformanceDTO> performances)
+   public void setPerformances(final Set<NestedPerformanceIdDTO> performances)
    {
       this.performances = performances;
    }
 
-   public NestedVenueDTO getVenue()
+   public NestedVenueIdDTO getVenue()
    {
       return this.venue;
    }
 
-   public void setVenue(final NestedVenueDTO venue)
+   public void setVenue(final NestedVenueIdDTO venue)
    {
       this.venue = venue;
    }

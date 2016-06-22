@@ -5,11 +5,10 @@ import org.jboss.examples.ticketmonster.model.Booking;
 import javax.persistence.EntityManager;
 import java.util.Set;
 import java.util.HashSet;
-import org.jboss.examples.ticketmonster.rest.dto.NestedTicketDTO;
+
 import org.jboss.examples.ticketmonster.model.Ticket;
 import java.util.Iterator;
 import java.util.Date;
-import org.jboss.examples.ticketmonster.rest.dto.NestedPerformanceDTO;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -22,7 +21,7 @@ public class BookingDTO implements Serializable
    private Date createdOn;
    private String cancellationCode;
    private String contactEmail;
-   private NestedPerformanceDTO performance;
+   private NestedPerformanceIdDTO performance;
 
    public BookingDTO()
    {
@@ -43,7 +42,7 @@ public class BookingDTO implements Serializable
          this.createdOn = entity.getCreatedOn();
          this.cancellationCode = entity.getCancellationCode();
          this.contactEmail = entity.getContactEmail();
-         this.performance = new NestedPerformanceDTO(entity.getPerformance());
+         this.performance = new NestedPerformanceIdDTO(entity.getPerformance());
       }
    }
 
@@ -108,11 +107,7 @@ public class BookingDTO implements Serializable
       entity.setCreatedOn(this.createdOn);
       entity.setCancellationCode(this.cancellationCode);
       entity.setContactEmail(this.contactEmail);
-      if (this.performance != null)
-      {
-         entity.setPerformance(this.performance.fromDTO(
-               entity.getPerformance(), em));
-      }
+      entity.setPerformance(this.performance.performanceId());
       entity = em.merge(entity);
       return entity;
    }
@@ -177,12 +172,12 @@ public class BookingDTO implements Serializable
       this.contactEmail = contactEmail;
    }
 
-   public NestedPerformanceDTO getPerformance()
+   public NestedPerformanceIdDTO getPerformance()
    {
       return this.performance;
    }
 
-   public void setPerformance(final NestedPerformanceDTO performance)
+   public void setPerformance(NestedPerformanceIdDTO performance)
    {
       this.performance = performance;
    }

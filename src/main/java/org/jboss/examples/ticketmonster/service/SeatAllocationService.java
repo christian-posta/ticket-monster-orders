@@ -1,20 +1,13 @@
 package org.jboss.examples.ticketmonster.service;
 
-import java.util.List;
+import org.jboss.examples.ticketmonster.model.*;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-
-import org.jboss.examples.ticketmonster.model.Performance;
-import org.jboss.examples.ticketmonster.model.Seat;
-import org.jboss.examples.ticketmonster.model.SeatAllocationException;
-import org.jboss.examples.ticketmonster.model.Section;
-import org.jboss.examples.ticketmonster.model.SectionAllocation;
-import org.jboss.examples.ticketmonster.service.AllocatedSeats;
+import java.util.List;
 
 /**
  *
@@ -29,13 +22,13 @@ public class SeatAllocationService {
     @PersistenceContext(unitName = "primary")
     EntityManager entityManager;
 
-    public AllocatedSeats allocateSeats(Section section, Performance performance, int seatCount, boolean contiguous) {
+    public AllocatedSeats allocateSeats(Section section, PerformanceId performance, int seatCount, boolean contiguous) {
         SectionAllocation sectionAllocation = retrieveSectionAllocationExclusively(section, performance);
         List<Seat> seats = sectionAllocation.allocateSeats(seatCount, contiguous);
         return new AllocatedSeats(sectionAllocation, seats);
     }
 
-    public void deallocateSeats(Section section, Performance performance, List<Seat> seats) {
+    public void deallocateSeats(Section section, PerformanceId performance, List<Seat> seats) {
         SectionAllocation sectionAllocation = retrieveSectionAllocationExclusively(section, performance);
         for (Seat seat : seats) {
             if (!seat.getSection().equals(section)) {
@@ -45,7 +38,7 @@ public class SeatAllocationService {
         }
     }
 
-    private SectionAllocation retrieveSectionAllocationExclusively(Section section, Performance performance) {
+    private SectionAllocation retrieveSectionAllocationExclusively(Section section, PerformanceId performance) {
         SectionAllocation sectionAllocationStatus = null;
         try {
             sectionAllocationStatus = (SectionAllocation) entityManager.createQuery(

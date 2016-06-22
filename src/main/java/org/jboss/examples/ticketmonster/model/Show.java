@@ -1,22 +1,14 @@
 package org.jboss.examples.ticketmonster.model;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.GenerationType.IDENTITY;
-
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * <p>
@@ -64,7 +56,7 @@ public class Show implements Serializable {
      */
     @ManyToOne
     @NotNull
-    private Event event;
+    private EventId event;
 
     /**
      * <p>
@@ -77,7 +69,7 @@ public class Show implements Serializable {
      */
     @ManyToOne
     @NotNull
-    private Venue venue;
+    private VenueId venue;
 
     /**
      * <p>
@@ -99,7 +91,7 @@ public class Show implements Serializable {
      */
     @OneToMany(fetch = EAGER, mappedBy = "show", cascade = ALL)
     @OrderBy("date")
-    private Set<Performance> performances = new HashSet<Performance>();
+    private Set<PerformanceId> performances = new HashSet<PerformanceId>();
 
     /**
      * <p>
@@ -126,27 +118,27 @@ public class Show implements Serializable {
         this.id = id;
     }
 
-    public Event getEvent() {
+    public EventId getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
+    public void setEvent(EventId event) {
         this.event = event;
     }
 
-    public Set<Performance> getPerformances() {
+    public Set<PerformanceId> getPerformances() {
         return performances;
     }
 
-    public void setPerformances(Set<Performance> performances) {
+    public void setPerformances(Set<PerformanceId> performances) {
         this.performances = performances;
     }
 
-    public Venue getVenue() {
+    public VenueId getVenue() {
         return venue;
     }
 
-    public void setVenue(Venue venue) {
+    public void setVenue(VenueId venue) {
         this.venue = venue;
     }
 

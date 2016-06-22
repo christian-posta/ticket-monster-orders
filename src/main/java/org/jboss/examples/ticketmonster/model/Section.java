@@ -87,7 +87,7 @@ public class Section implements Serializable {
      */
     @ManyToOne
     @NotNull
-    private Venue venue;
+    private VenueId venue;
 
     /**
      * The number of rows that make up the section.
@@ -145,11 +145,11 @@ public class Section implements Serializable {
         return this.rowCapacity * this.numberOfRows;
     }
 
-    public Venue getVenue() {
+    public VenueId getVenue() {
         return venue;
     }
 
-    public void setVenue(Venue venue) {
+    public void setVenue(VenueId venue) {
         this.venue = venue;
     }
     

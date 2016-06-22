@@ -73,7 +73,7 @@ public class Booking implements Serializable {
      * <code>@ManyToOne<code> JPA mapping establishes this relationship.
      */
     @ManyToOne
-    private Performance performance;
+    private PerformanceId performance;
 
     /**
      * <p>
@@ -171,11 +171,11 @@ public class Booking implements Serializable {
         this.contactEmail = contactEmail;
     }
 
-    public Performance getPerformance() {
+    public PerformanceId getPerformance() {
         return performance;
     }
 
-    public void setPerformance(Performance performance) {
+    public void setPerformance(PerformanceId performance) {
         this.performance = performance;
     }
 

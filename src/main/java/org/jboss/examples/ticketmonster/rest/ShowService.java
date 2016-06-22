@@ -1,7 +1,6 @@
 package org.jboss.examples.ticketmonster.rest;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.examples.ticketmonster.model.Show;
 
 import javax.ejb.Stateless;
 import javax.persistence.Query;
@@ -14,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-
-import org.jboss.examples.ticketmonster.model.Show;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Marius Bogoevici

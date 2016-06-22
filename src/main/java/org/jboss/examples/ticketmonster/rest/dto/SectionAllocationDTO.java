@@ -3,8 +3,6 @@ package org.jboss.examples.ticketmonster.rest.dto;
 import java.io.Serializable;
 import org.jboss.examples.ticketmonster.model.SectionAllocation;
 import javax.persistence.EntityManager;
-import org.jboss.examples.ticketmonster.rest.dto.NestedPerformanceDTO;
-import org.jboss.examples.ticketmonster.rest.dto.NestedSectionDTO;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -12,7 +10,7 @@ public class SectionAllocationDTO implements Serializable
 {
 
    private int occupiedCount;
-   private NestedPerformanceDTO performance;
+   private NestedPerformanceIdDTO performance;
    private NestedSectionDTO section;
    private Long id;
 
@@ -25,7 +23,7 @@ public class SectionAllocationDTO implements Serializable
       if (entity != null)
       {
          this.occupiedCount = entity.getOccupiedCount();
-         this.performance = new NestedPerformanceDTO(entity.getPerformance());
+         this.performance = new NestedPerformanceIdDTO(entity.getPerformance());
          this.section = new NestedSectionDTO(entity.getSection());
          this.id = entity.getId();
       }
@@ -51,12 +49,12 @@ public class SectionAllocationDTO implements Serializable
       this.occupiedCount = occupiedCount;
    }
 
-   public NestedPerformanceDTO getPerformance()
+   public NestedPerformanceIdDTO getPerformance()
    {
       return this.performance;
    }
 
-   public void setPerformance(final NestedPerformanceDTO performance)
+   public void setPerformance(final NestedPerformanceIdDTO performance)
    {
       this.performance = performance;
    }

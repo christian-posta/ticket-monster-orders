@@ -1,38 +1,21 @@
 package org.jboss.examples.ticketmonster.rest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import org.jboss.examples.ticketmonster.model.*;
+import org.jboss.examples.ticketmonster.service.AllocatedSeats;
+import org.jboss.examples.ticketmonster.service.Cancelled;
+import org.jboss.examples.ticketmonster.service.Created;
+import org.jboss.examples.ticketmonster.service.SeatAllocationService;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.Response;
-
-import org.jboss.examples.ticketmonster.model.Booking;
-import org.jboss.examples.ticketmonster.model.Performance;
-import org.jboss.examples.ticketmonster.model.Seat;
-import org.jboss.examples.ticketmonster.model.Section;
-import org.jboss.examples.ticketmonster.model.Ticket;
-import org.jboss.examples.ticketmonster.model.TicketCategory;
-import org.jboss.examples.ticketmonster.model.TicketPrice;
-import org.jboss.examples.ticketmonster.service.AllocatedSeats;
-import org.jboss.examples.ticketmonster.service.SeatAllocationService;
-import org.jboss.examples.ticketmonster.util.qualifier.Cancelled;
-import org.jboss.examples.ticketmonster.util.qualifier.Created;
+import java.util.*;
 
 /**
  * <p>
@@ -127,7 +110,7 @@ public class BookingService extends BaseEntityService<Booking> {
             Set<Long> priceCategoryIds = bookingRequest.getUniquePriceCategoryIds();
             
             // load the entities that make up this booking's relationships
-            Performance performance = getEntityManager().find(Performance.class, bookingRequest.getPerformance());
+            PerformanceId performance = getEntityManager().find(PerformanceId.class, bookingRequest.getPerformance());
 
             // As we can have a mix of ticket types in a booking, we need to load all of them that are relevant, 
             // id

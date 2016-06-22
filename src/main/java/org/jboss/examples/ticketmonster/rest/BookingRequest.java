@@ -1,11 +1,11 @@
 package org.jboss.examples.ticketmonster.rest;
 
+import org.jboss.examples.ticketmonster.model.PerformanceId;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.jboss.examples.ticketmonster.model.Performance;
 
 /**
  * <p>
@@ -27,7 +27,7 @@ public class BookingRequest {
         // Empty constructor for JAXB
     }
 
-    public BookingRequest(Performance performance, String email) {
+    public BookingRequest(PerformanceId performance, String email) {
         this.performance = performance.getId();
         this.email = email;
     }

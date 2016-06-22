@@ -1,4 +1,4 @@
-package org.jboss.examples.ticketmonster.util.qualifier;
+package org.jboss.examples.ticketmonster.service;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,13 +8,13 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 /**
- * {@link Qualifier} to mark a Booking as new (created).
+ * {@link Qualifier} to mark a Booking as cancelled.
  * 
  * @author Christian Sadilek <csadilek@redhat.com>
  */
 @Qualifier
 @Target({ElementType.FIELD,ElementType.PARAMETER,ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Created {
+public @interface Cancelled {
 
 }
