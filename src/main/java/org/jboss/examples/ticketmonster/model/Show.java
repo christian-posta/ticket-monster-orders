@@ -77,7 +77,7 @@ public class Show implements Serializable {
      * </p>
      * 
      * <p>
-     * The <code>@OneToMany<code> JPA mapping establishes this relationship. TODO Explain EAGER fetch. 
+     * The <code>@OneToMany<code> JPA mapping establishes this relationship.
      * This relationship is bi-directional (a performance knows which show it is part of), and the <code>mappedBy</code>
      * attribute establishes this. We cascade all persistence operations to the set of performances, so, for example if a show
      * is removed, then all of it's performances will also be removed.
@@ -98,14 +98,14 @@ public class Show implements Serializable {
      * </p>
      * 
      * <p>
-     * The <code>@OneToMany<code> JPA mapping establishes this relationship. TODO Explain EAGER fetch. 
+     * The <code>@OneToMany<code> JPA mapping establishes this relationship.
      * This relationship is bi-directional (a ticket price category knows which show it is part of), and the <code>mappedBy</code>
      * attribute establishes this. We cascade all persistence operations to the set of performances, so, for example if a show
      * is removed, then all of it's ticket price categories are also removed.
      * </p>
      */
     @OneToMany(mappedBy = "show", cascade = ALL, fetch = EAGER)
-    private Set<TicketPrice> ticketPrices = new HashSet<TicketPrice>();
+    private Set<TicketPriceGuide> ticketPriceGuides = new HashSet<TicketPriceGuide>();
 
     /* Boilerplate getters and setters */
 
@@ -141,12 +141,12 @@ public class Show implements Serializable {
         this.venueId = venueId;
     }
 
-    public Set<TicketPrice> getTicketPrices() {
-        return ticketPrices;
+    public Set<TicketPriceGuide> getTicketPriceGuides() {
+        return ticketPriceGuides;
     }
 
-    public void setTicketPrices(Set<TicketPrice> ticketPrices) {
-        this.ticketPrices = ticketPrices;
+    public void setTicketPriceGuides(Set<TicketPriceGuide> ticketPriceGuides) {
+        this.ticketPriceGuides = ticketPriceGuides;
     }
 
     /* toString(), equals() and hashCode() for Show, using the natural identity of the object */

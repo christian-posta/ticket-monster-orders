@@ -46,3 +46,5 @@ mvn -Pf8-build fabric8:apply
 ```
 mvn clean package -Pmysql,f8-build docker:build
 ```
+
+TODO: eliminate sending back data model elements directly; we should make more clearly the "view" model and the "write" model .. this will involve cleaning up the DTO objects if they're not needed in the write model

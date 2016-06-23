@@ -47,7 +47,7 @@ public class Booking implements Serializable {
      * </p>
      * 
      * <p>
-     * The set of tickets is eagerly loaded because FIXME . All operations are cascaded to each ticket, so for example if a
+     * The set of tickets is eagerly loaded because
      * booking is removed, then all associated tickets will be removed.
      * </p>
      * 

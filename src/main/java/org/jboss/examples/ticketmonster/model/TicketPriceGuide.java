@@ -32,12 +32,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * We suppress the warning about not specifying a serialVersionUID, as we are still developing this app, and want the JVM to
  * generate the serialVersionUID for us. When we put this app into production, we'll generate and embed the serialVersionUID
  */
+
+// TODO ceposta: let's change this to be TicketPriceGuideEntry or something... it's not really the ticket price, that get
+// determined at checkout time what the actual ticket price is (ie, discounts, taxes, coupons, etc)
 @SuppressWarnings("serial")
 @Entity
-// TODO Document @JsonIgnoreProperties
 @JsonIgnoreProperties("show")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "section_id", "show_id", "ticketcategory_id" }))
-public class TicketPrice implements Serializable {
+public class TicketPriceGuide implements Serializable {
 
     /* Declaration of fields */
 
@@ -143,7 +145,7 @@ public class TicketPrice implements Serializable {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        TicketPrice that = (TicketPrice) o;
+        TicketPriceGuide that = (TicketPriceGuide) o;
 
         if (section != null ? !section.equals(that.section) : that.section != null)
             return false;

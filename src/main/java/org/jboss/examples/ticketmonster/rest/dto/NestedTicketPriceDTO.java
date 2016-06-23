@@ -1,7 +1,8 @@
 package org.jboss.examples.ticketmonster.rest.dto;
 
 import java.io.Serializable;
-import org.jboss.examples.ticketmonster.model.TicketPrice;
+import org.jboss.examples.ticketmonster.model.TicketPriceGuide;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -16,7 +17,7 @@ public class NestedTicketPriceDTO implements Serializable
    {
    }
 
-   public NestedTicketPriceDTO(final TicketPrice entity)
+   public NestedTicketPriceDTO(final TicketPriceGuide entity)
    {
       if (entity != null)
       {
@@ -26,18 +27,18 @@ public class NestedTicketPriceDTO implements Serializable
       }
    }
 
-   public TicketPrice fromDTO(TicketPrice entity, EntityManager em)
+   public TicketPriceGuide fromDTO(TicketPriceGuide entity, EntityManager em)
    {
       if (entity == null)
       {
-         entity = new TicketPrice();
+         entity = new TicketPriceGuide();
       }
       if (this.id != null)
       {
-         TypedQuery<TicketPrice> findByIdQuery = em
+         TypedQuery<TicketPriceGuide> findByIdQuery = em
                .createQuery(
                      "SELECT DISTINCT t FROM TicketPrice t WHERE t.id = :entityId",
-                     TicketPrice.class);
+                     TicketPriceGuide.class);
          findByIdQuery.setParameter("entityId", this.id);
          try
          {

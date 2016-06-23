@@ -43,11 +43,11 @@ public class ShowDTO implements Serializable
             this.performances.add(new NestedPerformanceIdDTO(element));
          }
          this.venue = new NestedVenueIdDTO(entity.getVenueId());
-         Iterator<TicketPrice> iterTicketPrices = entity.getTicketPrices()
+         Iterator<TicketPriceGuide> iterTicketPrices = entity.getTicketPriceGuides()
                .iterator();
          while (iterTicketPrices.hasNext())
          {
-            TicketPrice element = iterTicketPrices.next();
+            TicketPriceGuide element = iterTicketPrices.next();
             this.ticketPrices.add(new NestedTicketPriceDTO(element));
          }
          this.displayTitle = entity.toString();
@@ -134,19 +134,19 @@ public class ShowDTO implements Serializable
       {
          entity.setVenueId(this.venue.venueId());
       }
-      Iterator<TicketPrice> iterTicketPrices = entity.getTicketPrices()
+      Iterator<TicketPriceGuide> iterTicketPrices = entity.getTicketPriceGuides()
             .iterator();
       while (iterTicketPrices.hasNext())
       {
          boolean found = false;
-         TicketPrice ticketPrice = iterTicketPrices.next();
+         TicketPriceGuide ticketPriceGuide = iterTicketPrices.next();
          Iterator<NestedTicketPriceDTO> iterDtoTicketPrices = this
                .getTicketPrices().iterator();
          while (iterDtoTicketPrices.hasNext())
          {
             NestedTicketPriceDTO dtoTicketPrice = iterDtoTicketPrices
                   .next();
-            if (dtoTicketPrice.getId().equals(ticketPrice.getId()))
+            if (dtoTicketPrice.getId().equals(ticketPriceGuide.getId()))
             {
                found = true;
                break;
@@ -163,11 +163,11 @@ public class ShowDTO implements Serializable
       {
          boolean found = false;
          NestedTicketPriceDTO dtoTicketPrice = iterDtoTicketPrices.next();
-         iterTicketPrices = entity.getTicketPrices().iterator();
+         iterTicketPrices = entity.getTicketPriceGuides().iterator();
          while (iterTicketPrices.hasNext())
          {
-            TicketPrice ticketPrice = iterTicketPrices.next();
-            if (dtoTicketPrice.getId().equals(ticketPrice.getId()))
+            TicketPriceGuide ticketPriceGuide = iterTicketPrices.next();
+            if (dtoTicketPrice.getId().equals(ticketPriceGuide.getId()))
             {
                found = true;
                break;
@@ -175,15 +175,15 @@ public class ShowDTO implements Serializable
          }
          if (found == false)
          {
-            Iterator<TicketPrice> resultIter = em
+            Iterator<TicketPriceGuide> resultIter = em
                   .createQuery("SELECT DISTINCT t FROM TicketPrice t",
-                        TicketPrice.class).getResultList().iterator();
+                        TicketPriceGuide.class).getResultList().iterator();
             while (resultIter.hasNext())
             {
-               TicketPrice result = resultIter.next();
+               TicketPriceGuide result = resultIter.next();
                if (result.getId().equals(dtoTicketPrice.getId()))
                {
-                  entity.getTicketPrices().add(result);
+                  entity.getTicketPriceGuides().add(result);
                   break;
                }
             }

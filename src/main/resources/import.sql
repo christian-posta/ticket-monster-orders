@@ -185,46 +185,46 @@ insert into SectionAllocation(performance_id, section_id, allocated, occupiedcou
 
 
 
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (1, 1, 1, 219.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (1, 2, 1, 199.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (1, 3, 1, 179.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (1, 4, 1, 149.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (1, 1, 1, 219.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (1, 2, 1, 199.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (1, 3, 1, 179.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (1, 4, 1, 149.50);
 
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 5, 1, 167.75);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 6, 1, 197.75);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 7, 1, 167.75);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 8, 1, 155.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 9, 1, 155.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 10, 1, 155.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 11, 1, 122.5);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 5, 2, 157.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 6, 2, 187.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 7, 2, 157.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 8, 2, 145.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 9, 2, 145.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 10, 2, 145.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (2, 11, 2, 112.5);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 5, 1, 167.75);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 6, 1, 197.75);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 7, 1, 167.75);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 8, 1, 155.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 9, 1, 155.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 10, 1, 155.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 11, 1, 122.5);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 5, 2, 157.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 6, 2, 187.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 7, 2, 157.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 8, 2, 145.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 9, 2, 145.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 10, 2, 145.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (2, 11, 2, 112.5);
 
 
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (3, 1, 1, 219.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (3, 2, 1, 199.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (3, 3, 1, 179.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (3, 4, 1, 149.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (3, 1, 1, 219.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (3, 2, 1, 199.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (3, 3, 1, 179.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (3, 4, 1, 149.50);
 
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 5, 1, 167.75);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 6, 1, 197.75);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 7, 1, 167.75);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 8, 1, 155.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 9, 1, 155.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 10, 1, 155.0);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (4, 11, 1, 122.5);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 5, 1, 167.75);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 6, 1, 197.75);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 7, 1, 167.75);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 8, 1, 155.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 9, 1, 155.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 10, 1, 155.0);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (4, 11, 1, 122.5);
 
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (5, 12, 1, 219.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (5, 13, 1, 199.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (5, 14, 1, 179.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (5, 15, 1, 149.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (5, 12, 1, 219.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (5, 13, 1, 199.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (5, 14, 1, 179.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (5, 15, 1, 149.50);
 
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (6, 20, 1, 219.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (6, 21, 1, 199.50);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (6, 22, 1, 110);
-insert into TicketPrice ( show_id, section_id, ticketcategory_id, price) values (6, 23, 1, 55);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (6, 20, 1, 219.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (6, 21, 1, 199.50);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (6, 22, 1, 110);
+insert into TicketPriceGuide ( show_id, section_id, ticketcategory_id, price) values (6, 23, 1, 55);

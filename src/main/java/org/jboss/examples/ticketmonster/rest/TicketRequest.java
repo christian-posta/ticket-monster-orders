@@ -1,6 +1,6 @@
 package org.jboss.examples.ticketmonster.rest;
 
-import org.jboss.examples.ticketmonster.model.TicketPrice;
+import org.jboss.examples.ticketmonster.model.TicketPriceGuide;
 
 /**
  * <p>
@@ -13,7 +13,7 @@ import org.jboss.examples.ticketmonster.model.TicketPrice;
  */
 public class TicketRequest {
 
-    private long ticketPrice;
+    private long ticketPriceGuideId;
 
     private int quantity;
 
@@ -21,17 +21,17 @@ public class TicketRequest {
         // Empty constructor
     }
 
-    public TicketRequest(TicketPrice ticketPrice, int quantity) {
-        this.ticketPrice = ticketPrice.getId();
+    public TicketRequest(TicketPriceGuide ticketPriceGuide, int quantity) {
+        this.ticketPriceGuideId = ticketPriceGuide.getId();
         this.quantity = quantity;
     }
 
-    public long getTicketPrice() {
-        return ticketPrice;
+    public long getTicketPriceGuideId() {
+        return ticketPriceGuideId;
     }
 
-    public void setTicketPrice(long ticketPrice) {
-        this.ticketPrice = ticketPrice;
+    public void setTicketPriceGuideId(long ticketPriceGuideId) {
+        this.ticketPriceGuideId = ticketPriceGuideId;
     }
 
     public int getQuantity() {

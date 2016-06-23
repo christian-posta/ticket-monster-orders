@@ -21,8 +21,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
+
+import org.jboss.examples.ticketmonster.model.TicketPriceGuide;
 import org.jboss.examples.ticketmonster.rest.dto.TicketPriceDTO;
-import org.jboss.examples.ticketmonster.model.TicketPrice;
 
 /**
  * 
@@ -38,7 +39,7 @@ public class TicketPriceEndpoint
    @Consumes("application/json")
    public Response create(TicketPriceDTO dto)
    {
-      TicketPrice entity = dto.fromDTO(null, em);
+      TicketPriceGuide entity = dto.fromDTO(null, em);
       em.persist(entity);
       return Response.created(UriBuilder.fromResource(TicketPriceEndpoint.class).path(String.valueOf(entity.getId())).build()).build();
    }
@@ -47,7 +48,7 @@ public class TicketPriceEndpoint
    @Path("/{id:[0-9][0-9]*}")
    public Response deleteById(@PathParam("id") Long id)
    {
-      TicketPrice entity = em.find(TicketPrice.class, id);
+      TicketPriceGuide entity = em.find(TicketPriceGuide.class, id);
       if (entity == null)
       {
          return Response.status(Status.NOT_FOUND).build();
@@ -61,9 +62,9 @@ public class TicketPriceEndpoint
    @Produces("application/json")
    public Response findById(@PathParam("id") Long id)
    {
-      TypedQuery<TicketPrice> findByIdQuery = em.createQuery("SELECT DISTINCT t FROM TicketPrice t LEFT JOIN FETCH t.show LEFT JOIN FETCH t.section LEFT JOIN FETCH t.ticketCategory WHERE t.id = :entityId ORDER BY t.id", TicketPrice.class);
+      TypedQuery<TicketPriceGuide> findByIdQuery = em.createQuery("SELECT DISTINCT t FROM TicketPrice t LEFT JOIN FETCH t.show LEFT JOIN FETCH t.section LEFT JOIN FETCH t.ticketCategory WHERE t.id = :entityId ORDER BY t.id", TicketPriceGuide.class);
       findByIdQuery.setParameter("entityId", id);
-      TicketPrice entity;
+      TicketPriceGuide entity;
       try
       {
          entity = findByIdQuery.getSingleResult();
@@ -84,7 +85,7 @@ public class TicketPriceEndpoint
    @Produces("application/json")
    public List<TicketPriceDTO> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult)
    {
-      TypedQuery<TicketPrice> findAllQuery = em.createQuery("SELECT DISTINCT t FROM TicketPrice t LEFT JOIN FETCH t.show LEFT JOIN FETCH t.section LEFT JOIN FETCH t.ticketCategory ORDER BY t.id", TicketPrice.class);
+      TypedQuery<TicketPriceGuide> findAllQuery = em.createQuery("SELECT DISTINCT t FROM TicketPrice t LEFT JOIN FETCH t.show LEFT JOIN FETCH t.section LEFT JOIN FETCH t.ticketCategory ORDER BY t.id", TicketPriceGuide.class);
       if (startPosition != null)
       {
          findAllQuery.setFirstResult(startPosition);
@@ -93,9 +94,9 @@ public class TicketPriceEndpoint
       {
          findAllQuery.setMaxResults(maxResult);
       }
-      final List<TicketPrice> searchResults = findAllQuery.getResultList();
+      final List<TicketPriceGuide> searchResults = findAllQuery.getResultList();
       final List<TicketPriceDTO> results = new ArrayList<TicketPriceDTO>();
-      for (TicketPrice searchResult : searchResults)
+      for (TicketPriceGuide searchResult : searchResults)
       {
          TicketPriceDTO dto = new TicketPriceDTO(searchResult);
          results.add(dto);
@@ -108,9 +109,9 @@ public class TicketPriceEndpoint
    @Consumes("application/json")
    public Response update(@PathParam("id") Long id, TicketPriceDTO dto)
    {
-      TypedQuery<TicketPrice> findByIdQuery = em.createQuery("SELECT DISTINCT t FROM TicketPrice t LEFT JOIN FETCH t.show LEFT JOIN FETCH t.section LEFT JOIN FETCH t.ticketCategory WHERE t.id = :entityId ORDER BY t.id", TicketPrice.class);
+      TypedQuery<TicketPriceGuide> findByIdQuery = em.createQuery("SELECT DISTINCT t FROM TicketPrice t LEFT JOIN FETCH t.show LEFT JOIN FETCH t.section LEFT JOIN FETCH t.ticketCategory WHERE t.id = :entityId ORDER BY t.id", TicketPriceGuide.class);
       findByIdQuery.setParameter("entityId", id);
-      TicketPrice entity;
+      TicketPriceGuide entity;
       try
       {
          entity = findByIdQuery.getSingleResult();

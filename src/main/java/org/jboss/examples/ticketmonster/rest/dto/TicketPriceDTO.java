@@ -1,11 +1,9 @@
 package org.jboss.examples.ticketmonster.rest.dto;
 
 import java.io.Serializable;
-import org.jboss.examples.ticketmonster.model.TicketPrice;
+import org.jboss.examples.ticketmonster.model.TicketPriceGuide;
 import javax.persistence.EntityManager;
-import org.jboss.examples.ticketmonster.rest.dto.NestedShowDTO;
-import org.jboss.examples.ticketmonster.rest.dto.NestedSectionDTO;
-import org.jboss.examples.ticketmonster.rest.dto.NestedTicketCategoryDTO;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -23,7 +21,7 @@ public class TicketPriceDTO implements Serializable
    {
    }
 
-   public TicketPriceDTO(final TicketPrice entity)
+   public TicketPriceDTO(final TicketPriceGuide entity)
    {
       if (entity != null)
       {
@@ -37,11 +35,11 @@ public class TicketPriceDTO implements Serializable
       }
    }
 
-   public TicketPrice fromDTO(TicketPrice entity, EntityManager em)
+   public TicketPriceGuide fromDTO(TicketPriceGuide entity, EntityManager em)
    {
       if (entity == null)
       {
-         entity = new TicketPrice();
+         entity = new TicketPriceGuide();
       }
       if (this.show != null)
       {

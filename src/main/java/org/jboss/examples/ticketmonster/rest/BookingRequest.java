@@ -72,18 +72,19 @@ public class BookingRequest {
     }
 
     /**
-     * Utility method - computes the unique price category ids in the request
+     * Utility method - computes the unique pricing ids in the request
      *
      * @return
      */
-    Set<Long> getUniquePriceCategoryIds() {
-        Set<Long> priceCategoryIds = new HashSet<Long>();
+    Set<Long> ticketPriceIds() {
+        Set<Long> ticketPriceIds = new HashSet<Long>();
         for (TicketRequest ticketRequest : getTicketRequests()) {
-            if (priceCategoryIds.contains(ticketRequest.getTicketPrice())) {
+            if (ticketPriceIds.contains(ticketRequest.getTicketPriceGuideId())) {
+                // TODO ceposta: should we just ignore this? who cares if there's a dup?
                 throw new RuntimeException("Duplicate price category id");
             }
-            priceCategoryIds.add(ticketRequest.getTicketPrice());
+            ticketPriceIds.add(ticketRequest.getTicketPriceGuideId());
         }
-        return priceCategoryIds;
+        return ticketPriceIds;
     }
 }

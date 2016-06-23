@@ -108,41 +108,50 @@ public class BookingService extends BaseEntityService<Booking> {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBooking(BookingRequest bookingRequest) {
         try {
-            // identify the ticket price categories in this request
-            Set<Long> priceCategoryIds = bookingRequest.getUniquePriceCategoryIds();
+            // identify the ticket price ids in this request
+            Set<Long> ticketPriceIds = bookingRequest.ticketPriceIds();
             
             // As we can have a mix of ticket types in a booking, we need to load all of them that are relevant,
             // id
-            PerformanceId performance = new PerformanceId(bookingRequest.getPerformance(), bookingRequest.getPerformanceName());
-            Map<Long, TicketPrice> ticketPricesById = loadTicketPrices(priceCategoryIds);
+            Map<Long, TicketPriceGuide> ticketPricesById = loadTicketPrices(ticketPriceIds);
 
             // Now, start to create the booking from the posted data
             // Set the simple stuff first!
+            PerformanceId performance = new PerformanceId(bookingRequest.getPerformance(), bookingRequest.getPerformanceName());
+
             Booking booking = new Booking();
             booking.setContactEmail(bookingRequest.getEmail());
             booking.setPerformanceId(performance);
+
+            // TODO ceposta: why is this hardcoed?
             booking.setCancellationCode("abc");
 
-            // Now, we iterate over each ticket that was requested, and organize them by section and category
+            // Now, we iterate over each ticket that was requested, and organize them by section. Each
+            // section will have a map of ticketCategory->ticketsRequested
             // we want to allocate ticket requests that belong to the same section contiguously
             Map<Section, Map<TicketCategory, TicketRequest>> ticketRequestsPerSection
                     = new TreeMap<Section, java.util.Map<TicketCategory, TicketRequest>>(SectionComparator.instance());
+
             for (TicketRequest ticketRequest : bookingRequest.getTicketRequests()) {
-                final TicketPrice ticketPrice = ticketPricesById.get(ticketRequest.getTicketPrice());
-                if (!ticketRequestsPerSection.containsKey(ticketPrice.getSection())) {
+
+                final TicketPriceGuide ticketPriceGuide = ticketPricesById.get(ticketRequest.getTicketPriceGuideId());
+
+                if (!ticketRequestsPerSection.containsKey(ticketPriceGuide.getSection())) {
                     ticketRequestsPerSection
-                            .put(ticketPrice.getSection(), new HashMap<TicketCategory, TicketRequest>());
+                            .put(ticketPriceGuide.getSection(), new HashMap<TicketCategory, TicketRequest>());
                 }
-                ticketRequestsPerSection.get(ticketPrice.getSection()).put(
-                        ticketPricesById.get(ticketRequest.getTicketPrice()).getTicketCategory(), ticketRequest);
+                ticketRequestsPerSection.get(ticketPriceGuide.getSection())
+                        .put(extractTicketCategory(ticketPricesById, ticketRequest), ticketRequest);
             }
 
             // Now, we can allocate the tickets
             // Iterate over the sections, finding the candidate seats for allocation
             // The process will lock the record for a given
             // Use deterministic ordering to prevent deadlocks
-            Map<Section, AllocatedSeats> seatsPerSection = new TreeMap<Section, org.jboss.examples.ticketmonster.service.AllocatedSeats>(SectionComparator.instance());
+            Map<Section, AllocatedSeats> allocatedSeatsPerSection = new TreeMap<Section, AllocatedSeats>(SectionComparator.instance());
+
             List<Section> failedSections = new ArrayList<Section>();
+
             for (Section section : ticketRequestsPerSection.keySet()) {
                 int totalTicketsRequestedPerSection = 0;
                 // Compute the total number of tickets required (a ticket category doesn't impact the actual seat!)
@@ -151,29 +160,36 @@ public class BookingService extends BaseEntityService<Booking> {
                 for (TicketRequest ticketRequest : ticketRequestsByCategories.values()) {
                     totalTicketsRequestedPerSection += ticketRequest.getQuantity();
                 }
+
+                // *********************
                 // try to allocate seats
-                
+                // *********************
                 AllocatedSeats allocatedSeats = seatAllocationService.allocateSeats(section, performance, totalTicketsRequestedPerSection, true);
                 if (allocatedSeats.getSeats().size() == totalTicketsRequestedPerSection) {
-                    seatsPerSection.put(section, allocatedSeats);
+                    allocatedSeatsPerSection.put(section, allocatedSeats);
                 } else {
                     failedSections.add(section);
                 }
             }
+
+            // if there are no failed sections, return success!!
+            // this is kinda silly though because we may still want to allocate sections up to what we can and
+            // ask display to the user which allocations we could get and let them decide what they want to do?
+            // or we have a reservation step before they get the payment which will give them that information.
             if (failedSections.isEmpty()) {
-                for (Section section : seatsPerSection.keySet()) {
+                for (Section section : allocatedSeatsPerSection.keySet()) {
                     // allocation was successful, begin generating tickets
                     // associate each allocated seat with a ticket, assigning a price category to it
                     final Map<TicketCategory, TicketRequest> ticketRequestsByCategories = ticketRequestsPerSection.get(section);
-                    AllocatedSeats allocatedSeats = seatsPerSection.get(section);
+                    AllocatedSeats allocatedSeats = allocatedSeatsPerSection.get(section);
                     allocatedSeats.markOccupied();
                     int seatCounter = 0;
                     // Now, add a ticket for each requested ticket to the booking
                     for (TicketCategory ticketCategory : ticketRequestsByCategories.keySet()) {
                         final TicketRequest ticketRequest = ticketRequestsByCategories.get(ticketCategory);
-                        final TicketPrice ticketPrice = ticketPricesById.get(ticketRequest.getTicketPrice());
+                        final TicketPriceGuide ticketPriceGuide = ticketPricesById.get(ticketRequest.getTicketPriceGuideId());
                         for (int i = 0; i < ticketRequest.getQuantity(); i++) {
-                            Ticket ticket = new Ticket(allocatedSeats.getSeats().get(seatCounter + i), ticketCategory, ticketPrice.getPrice());
+                            Ticket ticket = new Ticket(allocatedSeats.getSeats().get(seatCounter + i), ticketCategory, ticketPriceGuide.getPrice());
                             // getEntityManager().persist(ticket);
                             booking.getTickets().add(ticket);
                         }
@@ -187,6 +203,10 @@ public class BookingService extends BaseEntityService<Booking> {
                 newBookingEvent.fire(booking);
                 return Response.ok().entity(booking).type(MediaType.APPLICATION_JSON_TYPE).build();
             } else {
+
+                // cannot allocated all the sections so we just error out!?
+                // TODO ceposta: we need to change this so we still allocate some? and report back how many we got?
+                // and possibly ask about a waitlist?
                 Map<String, Object> responseEntity = new HashMap<String, Object>();
                 responseEntity.put("errors", Collections.singletonList("Cannot allocate the requested number of seats!"));
                 return Response.status(Response.Status.BAD_REQUEST).entity(responseEntity).build();
@@ -213,6 +233,10 @@ public class BookingService extends BaseEntityService<Booking> {
         }
     }
 
+    private TicketCategory extractTicketCategory(Map<Long, TicketPriceGuide> ticketPricesById, TicketRequest ticketRequest) {
+        return ticketPricesById.get(ticketRequest.getTicketPriceGuideId()).getTicketCategory();
+    }
+
     private String getStackTrace(Exception e) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -225,14 +249,14 @@ public class BookingService extends BaseEntityService<Booking> {
      * @param priceCategoryIds
      * @return
      */
-    private Map<Long, TicketPrice> loadTicketPrices(Set<Long> priceCategoryIds) {
-        List<TicketPrice> ticketPrices = (List<TicketPrice>) getEntityManager()
-                .createQuery("select p from TicketPrice p where p.id in :ids", TicketPrice.class)
+    private Map<Long, TicketPriceGuide> loadTicketPrices(Set<Long> priceCategoryIds) {
+        List<TicketPriceGuide> ticketPriceGuides = (List<TicketPriceGuide>) getEntityManager()
+                .createQuery("select p from TicketPriceGuide p where p.id in :ids", TicketPriceGuide.class)
                 .setParameter("ids", priceCategoryIds).getResultList();
         // Now, map them by id
-        Map<Long, TicketPrice> ticketPricesById = new HashMap<Long, TicketPrice>();
-        for (TicketPrice ticketPrice : ticketPrices) {
-            ticketPricesById.put(ticketPrice.getId(), ticketPrice);
+        Map<Long, TicketPriceGuide> ticketPricesById = new HashMap<Long, TicketPriceGuide>();
+        for (TicketPriceGuide ticketPriceGuide : ticketPriceGuides) {
+            ticketPricesById.put(ticketPriceGuide.getId(), ticketPriceGuide);
         }
         return ticketPricesById;
     }

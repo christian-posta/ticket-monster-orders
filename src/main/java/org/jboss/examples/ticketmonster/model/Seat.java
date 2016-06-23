@@ -5,7 +5,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 
 /**
- * TODO
  * @author Marius Bogoevici
  * @author Pete Muir
  */
