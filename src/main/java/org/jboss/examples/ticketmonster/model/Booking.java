@@ -9,12 +9,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -23,11 +18,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * <p>
- * A Booking represents a set of tickets purchased for a performance.
+ * A Booking represents a set of tickets purchased for a performanceId.
  * </p>
  * 
  * <p>
- * Booking's principle members are a <em>set</em> of tickets, and the performance for which the tickets are booked. It also
+ * Booking's principle members are a <em>set</em> of tickets, and the performanceId for which the tickets are booked. It also
  * contains meta-data about the booking, including a contact for the booking, a booking date and a cancellation code
  * </p>
  * 
@@ -69,11 +64,12 @@ public class Booking implements Serializable {
     private Set<Ticket> tickets = new HashSet<Ticket>();
 
     /**
-     * The performance of the show with which the booking is validated. The
+     * The performanceId of the show with which the booking is validated. The
      * <code>@ManyToOne<code> JPA mapping establishes this relationship.
      */
     @NotNull
-    private PerformanceId performance;
+    @Embedded
+    private PerformanceId performanceId;
 
     /**
      * <p>
@@ -171,12 +167,12 @@ public class Booking implements Serializable {
         this.contactEmail = contactEmail;
     }
 
-    public PerformanceId getPerformance() {
-        return performance;
+    public PerformanceId getPerformanceId() {
+        return performanceId;
     }
 
-    public void setPerformance(PerformanceId performance) {
-        this.performance = performance;
+    public void setPerformanceId(PerformanceId performanceId) {
+        this.performanceId = performanceId;
     }
 
     /* equals() and hashCode() for Booking, using the synthetic identity of the object */

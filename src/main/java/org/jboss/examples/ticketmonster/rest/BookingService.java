@@ -15,6 +15,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.Response;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.*;
 
 /**
@@ -85,7 +87,7 @@ public class BookingService extends BaseEntityService<Booking> {
         // Deallocate each section block
         for (Map.Entry<Section, List<Seat>> sectionListEntry : seatsBySection.entrySet()) {
             seatAllocationService.deallocateSeats( sectionListEntry.getKey(),
-                    booking.getPerformance(), sectionListEntry.getValue());
+                    booking.getPerformanceId(), sectionListEntry.getValue());
         }
         cancelledBookingEvent.fire(booking);
         return Response.noContent().build();
@@ -109,18 +111,16 @@ public class BookingService extends BaseEntityService<Booking> {
             // identify the ticket price categories in this request
             Set<Long> priceCategoryIds = bookingRequest.getUniquePriceCategoryIds();
             
-            // load the entities that make up this booking's relationships
-            PerformanceId performance = getEntityManager().find(PerformanceId.class, bookingRequest.getPerformance());
-
-            // As we can have a mix of ticket types in a booking, we need to load all of them that are relevant, 
+            // As we can have a mix of ticket types in a booking, we need to load all of them that are relevant,
             // id
+            PerformanceId performance = new PerformanceId(bookingRequest.getPerformance(), bookingRequest.getPerformanceName());
             Map<Long, TicketPrice> ticketPricesById = loadTicketPrices(priceCategoryIds);
 
             // Now, start to create the booking from the posted data
             // Set the simple stuff first!
             Booking booking = new Booking();
             booking.setContactEmail(bookingRequest.getEmail());
-            booking.setPerformance(performance);
+            booking.setPerformanceId(performance);
             booking.setCancellationCode("abc");
 
             // Now, we iterate over each ticket that was requested, and organize them by section and category
@@ -181,7 +181,7 @@ public class BookingService extends BaseEntityService<Booking> {
                     }
                 }
                 // Persist the booking, including cascaded relationships
-                booking.setPerformance(performance);
+                booking.setPerformanceId(performance);
                 booking.setCancellationCode("abc");
                 getEntityManager().persist(booking);
                 newBookingEvent.fire(booking);
@@ -206,10 +206,18 @@ public class BookingService extends BaseEntityService<Booking> {
             // Finally, handle unexpected exceptions
             Map<String, Object> errors = new HashMap<String, Object>();
             errors.put("errors", Collections.singletonList(e.getMessage()));
+            errors.put("stacktrace", Collections.singletonList(getStackTrace(e)));
             // A WebApplicationException can wrap a response
             // Throwing the exception causes an automatic rollback
             throw new RestServiceException(Response.status(Response.Status.BAD_REQUEST).entity(errors).build());
         }
+    }
+
+    private String getStackTrace(Exception e) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return sw.toString();
     }
 
     /**

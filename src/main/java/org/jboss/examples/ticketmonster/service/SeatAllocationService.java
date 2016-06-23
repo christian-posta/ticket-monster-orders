@@ -43,7 +43,7 @@ public class SeatAllocationService {
         try {
             sectionAllocationStatus = (SectionAllocation) entityManager.createQuery(
                 "select s from SectionAllocation s where " +
-                    "s.performance.id = :performanceId and " +
+                    "s.performanceId.id = :performanceId and " +
                     "s.section.id = :sectionId")
                 .setParameter("performanceId", performance.getId())
                 .setParameter("sectionId", section.getId())

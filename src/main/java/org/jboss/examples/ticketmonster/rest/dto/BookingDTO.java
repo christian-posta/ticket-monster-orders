@@ -42,7 +42,7 @@ public class BookingDTO implements Serializable
          this.createdOn = entity.getCreatedOn();
          this.cancellationCode = entity.getCancellationCode();
          this.contactEmail = entity.getContactEmail();
-         this.performance = new NestedPerformanceIdDTO(entity.getPerformance());
+         this.performance = new NestedPerformanceIdDTO(entity.getPerformanceId());
       }
    }
 
@@ -107,7 +107,7 @@ public class BookingDTO implements Serializable
       entity.setCreatedOn(this.createdOn);
       entity.setCancellationCode(this.cancellationCode);
       entity.setContactEmail(this.contactEmail);
-      entity.setPerformance(this.performance.performanceId());
+      entity.setPerformanceId(this.performance.performanceId());
       entity = em.merge(entity);
       return entity;
    }

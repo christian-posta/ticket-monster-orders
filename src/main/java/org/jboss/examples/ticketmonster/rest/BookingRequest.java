@@ -21,6 +21,7 @@ public class BookingRequest {
 
     private List<TicketRequest> ticketRequests = new ArrayList<TicketRequest>();
     private long performance;
+    private String performanceName;
     private String email;
     
     public BookingRequest() {
@@ -52,6 +53,14 @@ public class BookingRequest {
     public void setPerformance(long performance) {
 
         this.performance = performance;
+    }
+
+    public String getPerformanceName() {
+        return performanceName;
+    }
+
+    public void setPerformanceName(String performanceName) {
+        this.performanceName = performanceName;
     }
 
     public String getEmail() {
