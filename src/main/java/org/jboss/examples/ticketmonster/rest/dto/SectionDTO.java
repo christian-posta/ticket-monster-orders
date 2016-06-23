@@ -31,7 +31,7 @@ public class SectionDTO implements Serializable
          this.numberOfRows = entity.getNumberOfRows();
          this.rowCapacity = entity.getRowCapacity();
          this.capacity = entity.getCapacity();
-         this.venue = new NestedVenueIdDTO(entity.getVenue());
+         this.venue = new NestedVenueIdDTO(entity.getVenueId());
       }
    }
 
@@ -47,7 +47,7 @@ public class SectionDTO implements Serializable
       entity.setRowCapacity(this.rowCapacity);
       if (this.venue != null)
       {
-         entity.setVenue(this.venue.venueId());
+         entity.setVenueId(this.venue.venueId());
       }
       entity = em.merge(entity);
       return entity;

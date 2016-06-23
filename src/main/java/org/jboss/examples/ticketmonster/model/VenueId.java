@@ -16,18 +16,27 @@
  */
 package org.jboss.examples.ticketmonster.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 /**
  * Created by ceposta 
  * <a href="http://christianposta.com/blog>http://christianposta.com/blog</a>.
  */
+@Embeddable
 public class VenueId {
 
+    @Column(name = "venue_id")
     private Long id;
+    @Column(name = "venue_name")
     private String name;
 
     public VenueId(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public VenueId() {
     }
 
     public long getId() {

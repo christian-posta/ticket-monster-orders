@@ -54,9 +54,9 @@ public class Show implements Serializable {
      * The <code>@NotNull</code> Bean Validation constraint means that the event must be specified.
      * </p>
      */
-    @ManyToOne
     @NotNull
-    private EventId event;
+    @Embedded
+    private EventId eventId;
 
     /**
      * <p>
@@ -67,9 +67,9 @@ public class Show implements Serializable {
      * The <code>@NotNull</code> Bean Validation constraint means that the venue must be specified.
      * </p>
      */
-    @ManyToOne
     @NotNull
-    private VenueId venue;
+    @Embedded
+    private VenueId venueId;
 
     /**
      * <p>
@@ -89,8 +89,7 @@ public class Show implements Serializable {
      * <code>@OrderBy<code> annotation instructs JPA to do this.
      * </p>
      */
-    @OneToMany(fetch = EAGER, mappedBy = "show", cascade = ALL)
-    @OrderBy("date")
+    @Embedded
     private Set<PerformanceId> performances = new HashSet<PerformanceId>();
 
     /**
@@ -118,12 +117,12 @@ public class Show implements Serializable {
         this.id = id;
     }
 
-    public EventId getEvent() {
-        return event;
+    public EventId getEventId() {
+        return eventId;
     }
 
-    public void setEvent(EventId event) {
-        this.event = event;
+    public void setEventId(EventId eventId) {
+        this.eventId = eventId;
     }
 
     public Set<PerformanceId> getPerformances() {
@@ -134,12 +133,12 @@ public class Show implements Serializable {
         this.performances = performances;
     }
 
-    public VenueId getVenue() {
-        return venue;
+    public VenueId getVenueId() {
+        return venueId;
     }
 
-    public void setVenue(VenueId venue) {
-        this.venue = venue;
+    public void setVenueId(VenueId venueId) {
+        this.venueId = venueId;
     }
 
     public Set<TicketPrice> getTicketPrices() {
@@ -160,9 +159,9 @@ public class Show implements Serializable {
 
         Show show = (Show) o;
 
-        if (event != null ? !event.equals(show.event) : show.event != null)
+        if (eventId != null ? !eventId.equals(show.eventId) : show.eventId != null)
             return false;
-        if (venue != null ? !venue.equals(show.venue) : show.venue != null)
+        if (venueId != null ? !venueId.equals(show.venueId) : show.venueId != null)
             return false;
 
         return true;
@@ -170,13 +169,13 @@ public class Show implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = event != null ? event.hashCode() : 0;
-        result = 31 * result + (venue != null ? venue.hashCode() : 0);
+        int result = eventId != null ? eventId.hashCode() : 0;
+        result = 31 * result + (venueId != null ? venueId.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return event + " at " + venue;
+        return eventId + " at " + venueId;
     }
 }

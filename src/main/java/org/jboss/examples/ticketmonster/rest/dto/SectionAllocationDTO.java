@@ -23,7 +23,7 @@ public class SectionAllocationDTO implements Serializable
       if (entity != null)
       {
          this.occupiedCount = entity.getOccupiedCount();
-         this.performance = new NestedPerformanceIdDTO(entity.getPerformance());
+         this.performance = new NestedPerformanceIdDTO(entity.getPerformanceId());
          this.section = new NestedSectionDTO(entity.getSection());
          this.id = entity.getId();
       }

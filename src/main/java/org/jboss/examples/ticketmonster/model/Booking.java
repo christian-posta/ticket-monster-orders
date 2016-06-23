@@ -72,7 +72,7 @@ public class Booking implements Serializable {
      * The performance of the show with which the booking is validated. The
      * <code>@ManyToOne<code> JPA mapping establishes this relationship.
      */
-    @ManyToOne
+    @NotNull
     private PerformanceId performance;
 
     /**

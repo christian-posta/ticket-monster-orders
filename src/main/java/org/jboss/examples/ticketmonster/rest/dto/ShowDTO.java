@@ -34,7 +34,7 @@ public class ShowDTO implements Serializable
       if (entity != null)
       {
          this.id = entity.getId();
-         this.event = new NestedEventIdDTO(entity.getEvent());
+         this.event = new NestedEventIdDTO(entity.getEventId());
          Iterator<PerformanceId> iterPerformances = entity.getPerformances()
                .iterator();
          while (iterPerformances.hasNext())
@@ -42,7 +42,7 @@ public class ShowDTO implements Serializable
             PerformanceId element = iterPerformances.next();
             this.performances.add(new NestedPerformanceIdDTO(element));
          }
-         this.venue = new NestedVenueIdDTO(entity.getVenue());
+         this.venue = new NestedVenueIdDTO(entity.getVenueId());
          Iterator<TicketPrice> iterTicketPrices = entity.getTicketPrices()
                .iterator();
          while (iterTicketPrices.hasNext())
@@ -62,7 +62,7 @@ public class ShowDTO implements Serializable
       }
       if (this.event != null)
       {
-         entity.setEvent(this.event.eventId());
+         entity.setEventId(this.event.eventId());
       }
       Iterator<PerformanceId> iterPerformances = entity.getPerformances()
             .iterator();
@@ -132,7 +132,7 @@ public class ShowDTO implements Serializable
       }
       if (this.venue != null)
       {
-         entity.setVenue(this.venue.venueId());
+         entity.setVenueId(this.venue.venueId());
       }
       Iterator<TicketPrice> iterTicketPrices = entity.getTicketPrices()
             .iterator();

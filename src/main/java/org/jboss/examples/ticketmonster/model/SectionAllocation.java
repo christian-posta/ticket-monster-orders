@@ -8,20 +8,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * Represents the state of ticket allocation in a section, for a specific performance.
+ * Represents the state of ticket allocation in a section, for a specific performanceId.
  * </p>
  * 
  * <p>
@@ -30,7 +22,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  * 
  * <p>
- * The performance and section form the natural id of this entity, and therefore must be unique. JPA requires us to use the
+ * The performanceId and section form the natural id of this entity, and therefore must be unique. JPA requires us to use the
  * class level <code>@Table</code> constraint.
  * </p>
  * 
@@ -67,16 +59,16 @@ public class SectionAllocation implements Serializable {
 
     /**
      * <p>
-     * The performance to which this allocation relates. The <code>@ManyToOne<code> JPA mapping establishes this relationship.
+     * The performanceId to which this allocation relates. The <code>@ManyToOne<code> JPA mapping establishes this relationship.
      * </p>
      * 
      * <p>
-     * The performance must be specified, so we add the Bean Validation constrain <code>@NotNull</code>
+     * The performanceId must be specified, so we add the Bean Validation constrain <code>@NotNull</code>
      * </p>
      */
-    @ManyToOne
     @NotNull
-    private PerformanceId performance;
+    @Embedded
+    private PerformanceId performanceId;
 
     /**
      * <p>
@@ -127,8 +119,8 @@ public class SectionAllocation implements Serializable {
     public SectionAllocation() {
     }
 
-    public SectionAllocation(PerformanceId performance, Section section) {
-        this.performance = performance;
+    public SectionAllocation(PerformanceId performanceId, Section section) {
+        this.performanceId = performanceId;
         this.section = section;
         this.allocated = new long[section.getNumberOfRows()][section.getRowCapacity()];
         for (long[] seatStates : allocated) {
@@ -306,8 +298,8 @@ public class SectionAllocation implements Serializable {
         return occupiedCount;
     }
 
-    public PerformanceId getPerformance() {
-        return performance;
+    public PerformanceId getPerformanceId() {
+        return performanceId;
     }
 
     public Section getSection() {

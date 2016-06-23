@@ -4,24 +4,18 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * <p>
- * A section is a specific area within a venue layout. A venue layout may consist of multiple sections.
+ * A section is a specific area within a venueId layout. A venueId layout may consist of multiple sections.
  * </p>
  * 
  * <p>
- * The name and venue form the natural id of this entity, and therefore must be unique. JPA requires us to use the class level
+ * The name and venueId form the natural id of this entity, and therefore must be unique. JPA requires us to use the class level
  * <code>@Table</code> constraint.
  * </p>
  * 
@@ -38,7 +32,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 /*
  * We indicate that some properties of the class shouldn't be marshalled in JSON format
  */
-@JsonIgnoreProperties("venue")
 public class Section implements Serializable {
 
     /* Declaration of fields */
@@ -78,16 +71,16 @@ public class Section implements Serializable {
 
     /**
      * <p>
-     * The venue to which this section belongs. The <code>@ManyToOne<code> JPA mapping establishes this relationship.
+     * The venueId to which this section belongs. The <code>@ManyToOne<code> JPA mapping establishes this relationship.
      * </p>
      * 
      * <p>
-     * The <code>@NotNull</code> Bean Validation constraint means that the venue must be specified.
+     * The <code>@NotNull</code> Bean Validation constraint means that the venueId must be specified.
      * </p>
      */
-    @ManyToOne
     @NotNull
-    private VenueId venue;
+    @Embedded
+    private VenueId venueId;
 
     /**
      * The number of rows that make up the section.
@@ -145,12 +138,12 @@ public class Section implements Serializable {
         return this.rowCapacity * this.numberOfRows;
     }
 
-    public VenueId getVenue() {
-        return venue;
+    public VenueId getVenueId() {
+        return venueId;
     }
 
-    public void setVenue(VenueId venue) {
-        this.venue = venue;
+    public void setVenueId(VenueId venueId) {
+        this.venueId = venueId;
     }
     
     /* toString(), equals() and hashCode() for Section, using the natural identity of the object */
@@ -164,7 +157,7 @@ public class Section implements Serializable {
 
         Section section = (Section) o;
 
-        if (venue != null ? !venue.equals(section.venue) : section.venue != null)
+        if (venueId != null ? !venueId.equals(section.venueId) : section.venueId != null)
             return false;
         if (name != null ? !name.equals(section.name) : section.name != null)
             return false;
@@ -175,7 +168,7 @@ public class Section implements Serializable {
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (venue != null ? venue.hashCode() : 0);
+        result = 31 * result + (venueId != null ? venueId.hashCode() : 0);
         return result;
     }
 
