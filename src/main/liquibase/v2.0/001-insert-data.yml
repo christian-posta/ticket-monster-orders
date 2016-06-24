@@ -1,0 +1,10 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: insert-seed-data
+      author: ceposta
+      context: seed
+      changes:
+      - sqlFile:
+          dbms: mysql, h2
+          path: src/main/resources/import.sql

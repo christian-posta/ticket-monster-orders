@@ -1,0 +1,4 @@
+databaseChangeLog:
+
+  - includeAll:
+      path: src/main/liquibase/v2.0

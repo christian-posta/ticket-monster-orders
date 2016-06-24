@@ -1,0 +1,14 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: createTable-example
+      author: ceposta
+      changes:
+      - createTable:
+          catalogName: ticketmonster
+          columns:
+          - column:
+              name: address
+              type: varchar(255)
+          remarks: A String
+          tableName: Test

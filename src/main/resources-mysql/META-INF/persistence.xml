@@ -22,8 +22,18 @@ can find it in the source at src/main/webapp/WEB-INF/ticket-monster-ds.xml -->
         <jta-data-source>java:jboss/datasources/TicketMonsterMySQLDS</jta-data-source>
         <properties>
             <!-- Properties for Hibernate -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-            <property name="hibernate.show_sql" value="true" />
+          <!--  can be 'none' 'create' 'drop-and-create' and 'drop'
+          see https://docs.oracle.com/javaee/7/tutorial/persistence-intro005.htm for more-->
+            <property name="javax.persistence.schema-generation.database.action" value="none" />
+            <!--<property name="hibernate.show_sql" value="true" />-->
+          <!--<property name="javax.persistence.schema-generation.create-script-source"
+                    value="META-INF/sql/create.sql" />
+          <property name="javax.persistence.sql-load-script-source"
+                    value="META-INF/sql/data.sql" />
+          <property name="javax.persistence.schema-generation.drop-source"
+                    value="script" />
+          <property name="javax.persistence.schema-generation.drop-script-source"
+                    value="META-INF/sql/drop.sql" />-->
         </properties>
     </persistence-unit>
 </persistence>

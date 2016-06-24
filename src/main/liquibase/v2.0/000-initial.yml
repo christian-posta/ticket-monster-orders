@@ -1,0 +1,450 @@
+databaseChangeLog:
+- changeSet:
+    id: 1466723915083-1
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: event_id
+            type: BIGINT
+        - column:
+            name: event_name
+            type: VARCHAR(255)
+        - column:
+            name: venue_id
+            type: BIGINT
+        - column:
+            name: venue_name
+            type: VARCHAR(255)
+        tableName: Appearance
+- changeSet:
+    id: 1466723915083-2
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: cancellationCode
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: contactEmail
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: createdOn
+            type: datetime(6)
+        - column:
+            name: performance_id
+            type: BIGINT
+        - column:
+            name: performance_name
+            type: VARCHAR(255)
+        tableName: Booking
+- changeSet:
+    id: 1466723915083-3
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: description
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: numberOfRows
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: rowCapacity
+            type: INT
+        - column:
+            name: venue_id
+            type: BIGINT
+        - column:
+            name: venue_name
+            type: VARCHAR(255)
+        tableName: Section
+- changeSet:
+    id: 1466723915083-4
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: allocated
+            type: LONGBLOB
+        - column:
+            constraints:
+              nullable: false
+            name: occupiedCount
+            type: INT
+        - column:
+            name: performance_id
+            type: BIGINT
+        - column:
+            name: performance_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: version
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: section_id
+            type: BIGINT
+        tableName: SectionAllocation
+- changeSet:
+    id: 1466723915083-5
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: price
+            type: FLOAT(12)
+        - column:
+            constraints:
+              nullable: false
+            name: number
+            type: INT
+        - column:
+            constraints:
+              nullable: false
+            name: rowNumber
+            type: INT
+        - column:
+            name: section_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: ticketCategory_id
+            type: BIGINT
+        - column:
+            name: tickets_id
+            type: BIGINT
+        tableName: Ticket
+- changeSet:
+    id: 1466723915083-6
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: description
+            type: VARCHAR(255)
+        tableName: TicketCategory
+- changeSet:
+    id: 1466723915083-7
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: price
+            type: FLOAT(12)
+        - column:
+            constraints:
+              nullable: false
+            name: section_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: show_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: ticketCategory_id
+            type: BIGINT
+        tableName: TicketPriceGuide
+- changeSet:
+    id: 1466723915083-8
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addUniqueConstraint:
+        columnNames: performance_id, section_id
+        constraintName: UK25wlm457x8dmc00we5uw7an3s
+        tableName: SectionAllocation
+- changeSet:
+    id: 1466723915083-9
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addUniqueConstraint:
+        columnNames: description
+        constraintName: UK_43455ipnchbn6r4bg8pviai3g
+        tableName: TicketCategory
+- changeSet:
+    id: 1466723915083-10
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addUniqueConstraint:
+        columnNames: event_id, venue_id
+        constraintName: UKb2ol0eoqtadvfoxhsnqcajgqa
+        tableName: Appearance
+- changeSet:
+    id: 1466723915083-11
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addUniqueConstraint:
+        columnNames: section_id, show_id, ticketCategory_id
+        constraintName: UKro227lwq9ma9gy3ik6gl27xgm
+        tableName: TicketPriceGuide
+- changeSet:
+    id: 1466723915083-12
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addUniqueConstraint:
+        columnNames: name, venue_id
+        constraintName: UKruosqireipse41rdsuvhqj050
+        tableName: Section
+- changeSet:
+    id: 1466723915083-13
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: show_id
+        indexName: FK2nddwnrovke2wgpb8ffahqw
+        tableName: TicketPriceGuide
+- changeSet:
+    id: 1466723915083-14
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: ticketCategory_id
+        indexName: FK3d06sbv9l20tk2wa6yjsw9xdd
+        tableName: TicketPriceGuide
+- changeSet:
+    id: 1466723915083-15
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: section_id
+        indexName: FK60388cvbhb1xyrdhhe546t6dl
+        tableName: SectionAllocation
+- changeSet:
+    id: 1466723915083-16
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: section_id
+        indexName: FK7xoel6i5b4nrphore8ns2jtld
+        tableName: Ticket
+- changeSet:
+    id: 1466723915083-17
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: ticketCategory_id
+        indexName: FK88jejylfnpfqcslai19n4naqf
+        tableName: Ticket
+- changeSet:
+    id: 1466723915083-18
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: tickets_id
+        indexName: FKolbt9u28gyshci6ek9ep0rl5d
+        tableName: Ticket
+- changeSet:
+    id: 1466723915083-19
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: show_id
+        baseTableName: TicketPriceGuide
+        constraintName: FK2nddwnrovke2wgpb8ffahqw
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: Appearance
+- changeSet:
+    id: 1466723915083-20
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ticketCategory_id
+        baseTableName: TicketPriceGuide
+        constraintName: FK3d06sbv9l20tk2wa6yjsw9xdd
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: TicketCategory
+- changeSet:
+    id: 1466723915083-21
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: section_id
+        baseTableName: SectionAllocation
+        constraintName: FK60388cvbhb1xyrdhhe546t6dl
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: Section
+- changeSet:
+    id: 1466723915083-22
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: section_id
+        baseTableName: Ticket
+        constraintName: FK7xoel6i5b4nrphore8ns2jtld
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: Section
+- changeSet:
+    id: 1466723915083-23
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ticketCategory_id
+        baseTableName: Ticket
+        constraintName: FK88jejylfnpfqcslai19n4naqf
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: TicketCategory
+- changeSet:
+    id: 1466723915083-24
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: section_id
+        baseTableName: TicketPriceGuide
+        constraintName: FKaqmyqif55ipri4x65o8syt85k
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: Section
+- changeSet:
+    id: 1466723915083-25
+    author: ceposta (generated)
+    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: tickets_id
+        baseTableName: Ticket
+        constraintName: FKolbt9u28gyshci6ek9ep0rl5d
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: Booking
+

@@ -35,6 +35,9 @@
 
     <wildfly.swarm.version>1.0.0.CR1</wildfly.swarm.version>
 
+    <liquibase.version>3.5.1</liquibase.version>
+    <mysql.connector.version>5.1.39</mysql.connector.version>
+
     <!--  fabric8 / docker -->
     <docker.maven.plugin.version>0.14.2</docker.maven.plugin.version>
     <docker.from>fabric8/java-jboss-openjdk8-jdk:1.0.13</docker.from>
@@ -488,6 +491,42 @@
           <groupId>org.wildfly.swarm</groupId>
           <artifactId>jpa-mysql</artifactId>
           <version>1.0.0.CR3</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>db-migration-mysql</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>${liquibase.version}</version>
+            <configuration>
+              <changeLogFile>src/main/liquibase/master.yml</changeLogFile>
+              <!--<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>-->
+              <driver>com.mysql.jdbc.Driver</driver>
+              <url>jdbc:mysql://localhost:3306/ticketmonster</url>
+              <username>ticket</username>
+              <password>monster</password>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>update</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>${mysql.connector.version}</version>
         </dependency>
       </dependencies>
     </profile>
