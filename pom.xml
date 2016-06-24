@@ -36,6 +36,7 @@
     <wildfly.swarm.version>1.0.0.CR1</wildfly.swarm.version>
 
     <liquibase.version>3.5.1</liquibase.version>
+    <liquibase.hibernate.version>3.5</liquibase.hibernate.version>
     <mysql.connector.version>5.1.39</mysql.connector.version>
 
     <!--  fabric8 / docker -->
@@ -262,7 +263,23 @@
             </archive>
           </configuration>
         </plugin>
-
+        <plugin>
+          <groupId>org.liquibase</groupId>
+          <artifactId>liquibase-maven-plugin</artifactId>
+          <version>${liquibase.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>${mysql.connector.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.liquibase.ext</groupId>
+              <artifactId>liquibase-hibernate4</artifactId>
+              <version>${liquibase.hibernate.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -502,7 +519,6 @@
           <plugin>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
-            <version>${liquibase.version}</version>
             <configuration>
               <changeLogFile>src/main/liquibase/master.yml</changeLogFile>
               <!--<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>-->
@@ -522,13 +538,6 @@
           </plugin>
         </plugins>
       </build>
-      <dependencies>
-        <dependency>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-          <version>${mysql.connector.version}</version>
-        </dependency>
-      </dependencies>
     </profile>
 
 

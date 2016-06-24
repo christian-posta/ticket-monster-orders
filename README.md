@@ -63,5 +63,27 @@ mvn -Pdb-migration-mysql liquibase:status
 mvn -Pdb-migration-mysql liquibase:tag -Dliquibase.tag=v2.0
 ```
 
+Automatically discover diffs between the existing schema and what Hibernate sees currently
+
+```
+mvn -Pdb-migration-mysql liquibase:diff -Dliquibase.referenceUrl=hibernate:ejb3:primary
+```
+
+Generate the changeLog to a file:
+```
+mvn -Pdb-migration-mysql liquibase:diff -Dliquibase.referenceUrl=hibernate:ejb3:primary -Dliquibase.diffChangeLogFile=target/changes.yml
+```
+
+From here you can evaluate what changes should go into the next `update`
+
+After an update, it's recommended to tag if things went successful, or rollback if not.
+
+Also, you can see what tags exist in the DB:
+
+```
+select ID, DATEEXECUTED,TAG from DATABASECHANGELOG WHERE TAG IS NOT NULL ORDER BY DATEEXECUTED;
+```
+
+
 
 TODO: eliminate sending back data model elements directly; we should make more clearly the "view" model and the "write" model .. this will involve cleaning up the DTO objects if they're not needed in the write model
