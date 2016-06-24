@@ -71,7 +71,7 @@ mvn -Pdb-migration-mysql liquibase:diff -Dliquibase.referenceUrl=hibernate:ejb3:
 
 Generate the changeLog to a file:
 ```
-mvn -Pdb-migration-mysql liquibase:diff -Dliquibase.referenceUrl=hibernate:ejb3:primary -Dliquibase.diffChangeLogFile=target/changes.yml
+mvn -Pmysql,db-migration-mysql liquibase:diff -Dliquibase.referenceUrl=hibernate:ejb3:primary -Dliquibase.diffChangeLogFile=target/changes.yml
 ```
 
 From here you can evaluate what changes should go into the next `update`

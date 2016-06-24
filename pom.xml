@@ -35,8 +35,9 @@
 
     <wildfly.swarm.version>1.0.0.CR1</wildfly.swarm.version>
 
-    <liquibase.version>3.5.1</liquibase.version>
+    <liquibase.version>3.3.2</liquibase.version>
     <liquibase.hibernate.version>3.5</liquibase.hibernate.version>
+    <snakeyaml.version>1.13</snakeyaml.version>
     <mysql.connector.version>5.1.39</mysql.connector.version>
 
     <!--  fabric8 / docker -->
@@ -277,6 +278,11 @@
               <groupId>org.liquibase.ext</groupId>
               <artifactId>liquibase-hibernate4</artifactId>
               <version>${liquibase.hibernate.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.yaml</groupId>
+              <artifactId>snakeyaml</artifactId>
+              <version>${snakeyaml.version}</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -520,8 +526,7 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
             <configuration>
-              <changeLogFile>src/main/liquibase/master.yml</changeLogFile>
-              <!--<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>-->
+              <changeLogFile>src/main/liquibase/master.yaml</changeLogFile>
               <driver>com.mysql.jdbc.Driver</driver>
               <url>jdbc:mysql://localhost:3306/ticketmonster</url>
               <username>ticket</username>
