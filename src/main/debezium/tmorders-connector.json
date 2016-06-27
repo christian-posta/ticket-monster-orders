@@ -11,6 +11,7 @@
     "database.server.name": "tm-orders",
     "database.user": "replicator",
     "database.whitelist": "ticketmonster",
+    "table.blacklist": "ticketmonster.DATABASECHANGELOGLOCK,ticketmonster.DATABASECHANGELOG",
     "tasks.max": "1"
   },
   "name": "tmorders-connector"
