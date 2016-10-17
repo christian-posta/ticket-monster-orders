@@ -33,7 +33,8 @@
     <version.surefire.plugin>2.10</version.surefire.plugin>
     <buildhelper.plugin.version>1.7</buildhelper.plugin.version>
 
-    <wildfly.swarm.version>1.0.0.Final</wildfly.swarm.version>
+    <!--<wildfly.swarm.version>1.0.0.Final</wildfly.swarm.version>-->
+    <wildfly.swarm.version>2016.10.0</wildfly.swarm.version>
 
     <liquibase.version>3.3.2</liquibase.version>
     <liquibase.hibernate.version>3.5</liquibase.hibernate.version>
@@ -50,7 +51,7 @@
     <dependencies>
       <dependency>
         <groupId>org.wildfly.swarm</groupId>
-        <artifactId>bom</artifactId>
+        <artifactId>bom-all</artifactId>
         <version>${wildfly.swarm.version}</version>
         <type>pom</type>
         <scope>import</scope>
@@ -209,7 +210,6 @@
     <dependency>
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>monitor</artifactId>
-      <version>${wildfly.swarm.version}</version>
     </dependency>
 
 
@@ -463,8 +463,18 @@
       <dependencies>
         <dependency>
           <groupId>org.wildfly.swarm</groupId>
-          <artifactId>jpa-mysql</artifactId>
-          <version>1.0.0.CR3</version>
+          <artifactId>mysql</artifactId>
+          <!--<version>${wildfly.swarm.version}</version>-->
+        </dependency>
+        <dependency>
+          <groupId>org.wildfly.swarm</groupId>
+          <artifactId>jpa</artifactId>
+          <exclusions>
+            <exclusion>
+              <groupId>org.wildfly.swarm</groupId>
+              <artifactId>h2</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
       </dependencies>
     </profile>

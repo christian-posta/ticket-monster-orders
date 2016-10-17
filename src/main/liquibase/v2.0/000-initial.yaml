@@ -342,109 +342,109 @@ databaseChangeLog:
             name: tickets_id
         indexName: FKolbt9u28gyshci6ek9ep0rl5d
         tableName: Ticket
-- changeSet:
-    id: 1466723915083-19
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: show_id
-        baseTableName: TicketPriceGuide
-        constraintName: FK2nddwnrovke2wgpb8ffahqw
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: Appearance
-- changeSet:
-    id: 1466723915083-20
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: ticketCategory_id
-        baseTableName: TicketPriceGuide
-        constraintName: FK3d06sbv9l20tk2wa6yjsw9xdd
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: TicketCategory
-- changeSet:
-    id: 1466723915083-21
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: section_id
-        baseTableName: SectionAllocation
-        constraintName: FK60388cvbhb1xyrdhhe546t6dl
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: Section
-- changeSet:
-    id: 1466723915083-22
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: section_id
-        baseTableName: Ticket
-        constraintName: FK7xoel6i5b4nrphore8ns2jtld
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: Section
-- changeSet:
-    id: 1466723915083-23
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: ticketCategory_id
-        baseTableName: Ticket
-        constraintName: FK88jejylfnpfqcslai19n4naqf
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: TicketCategory
-- changeSet:
-    id: 1466723915083-24
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: section_id
-        baseTableName: TicketPriceGuide
-        constraintName: FKaqmyqif55ipri4x65o8syt85k
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: Section
-- changeSet:
-    id: 1466723915083-25
-    author: ceposta (generated)
-    objectQuotingStrategy: QUOTE_ALL_OBJECTS
-    changes:
-    - addForeignKeyConstraint:
-        baseColumnNames: tickets_id
-        baseTableName: Ticket
-        constraintName: FKolbt9u28gyshci6ek9ep0rl5d
-        deferrable: false
-        initiallyDeferred: false
-        onDelete: NO ACTION
-        onUpdate: NO ACTION
-        referencedColumnNames: id
-        referencedTableName: Booking
+#- changeSet:
+#    id: 1466723915083-19
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: show_id
+#        baseTableName: TicketPriceGuide
+#        constraintName: FK2nddwnrovke2wgpb8ffahqw
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: Appearance
+#- changeSet:
+#    id: 1466723915083-20
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: ticketCategory_id
+#        baseTableName: TicketPriceGuide
+#        constraintName: FK3d06sbv9l20tk2wa6yjsw9xdd
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: TicketCategory
+#- changeSet:
+#    id: 1466723915083-21
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: section_id
+#        baseTableName: SectionAllocation
+#        constraintName: FK60388cvbhb1xyrdhhe546t6dl
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: Section
+#- changeSet:
+#    id: 1466723915083-22
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: section_id
+#        baseTableName: Ticket
+#        constraintName: FK7xoel6i5b4nrphore8ns2jtld
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: Section
+#- changeSet:
+#    id: 1466723915083-23
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: ticketCategory_id
+#        baseTableName: Ticket
+#        constraintName: FK88jejylfnpfqcslai19n4naqf
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: TicketCategory
+#- changeSet:
+#    id: 1466723915083-24
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: section_id
+#        baseTableName: TicketPriceGuide
+#        constraintName: FKaqmyqif55ipri4x65o8syt85k
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: Section
+#- changeSet:
+#    id: 1466723915083-25
+#    author: ceposta (generated)
+#    objectQuotingStrategy: QUOTE_ALL_OBJECTS
+#    changes:
+#    - addForeignKeyConstraint:
+#        baseColumnNames: tickets_id
+#        baseTableName: Ticket
+#        constraintName: FKolbt9u28gyshci6ek9ep0rl5d
+#        deferrable: false
+#        initiallyDeferred: false
+#        onDelete: NO ACTION
+#        onUpdate: NO ACTION
+#        referencedColumnNames: id
+#        referencedTableName: Booking
 

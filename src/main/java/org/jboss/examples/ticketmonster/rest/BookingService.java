@@ -224,6 +224,7 @@ public class BookingService extends BaseEntityService<Booking> {
             throw new RestServiceException(Response.status(Response.Status.BAD_REQUEST).entity(errors).build());
         } catch (Exception e) {
             // Finally, handle unexpected exceptions
+            e.printStackTrace();
             Map<String, Object> errors = new HashMap<String, Object>();
             errors.put("errors", Collections.singletonList(e.getMessage()));
             errors.put("stacktrace", Collections.singletonList(getStackTrace(e)));
