@@ -34,7 +34,7 @@
     <buildhelper.plugin.version>1.7</buildhelper.plugin.version>
 
     <!--<wildfly.swarm.version>2016.8.1</wildfly.swarm.version>-->
-    <wildfly.swarm.version>1.0.0.Final</wildfly.swarm.version>
+    <wildfly.swarm.version>2016.10.0</wildfly.swarm.version>
 
     <liquibase.version>3.3.2</liquibase.version>
     <liquibase.hibernate.version>3.5</liquibase.hibernate.version>
