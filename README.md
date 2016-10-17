@@ -38,13 +38,13 @@ Can port forward to your local machine from vagrant like this:
 ## Running with a MySQL backend:
 
 ```
-mvn clean package -Pmysql,f8-build docker:build
+mvn clean package -Pmysql
 ```
 
 ## Ticket Monster on Kubernetes
 
 ```
-mvn -Pf8-build fabric8:apply
+mvn -Pf8,mysql fabric8:deploy
 ```
 
 
